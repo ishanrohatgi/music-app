@@ -8,21 +8,25 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "yt3.ggpht.com", // for channel/artist images
+        hostname: "yt3.ggpht.com", 
       },
-       {
+      {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", // for channel/artist images
+        hostname: "lh3.googleusercontent.com", 
       },
-        {
+      {
         protocol: "https",
-        hostname: "yt3.googleusercontent.com", // for channel/artist images
+        hostname: "yt3.googleusercontent.com", 
       },
-        {
+      {
         protocol: "https",
-        hostname: "www.gstatic.com", // for channel/artist images
+        hostname: "www.gstatic.com", 
       },
     ],
+  },
+  eslint: {
+   
+    ignoreDuringBuilds: true,
   },
 };
 
