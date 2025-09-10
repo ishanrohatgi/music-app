@@ -1,13 +1,13 @@
 import YTMusic from "ytmusic-api";
 
-export async function GET(request: Request) {
+export async function GET(req: Request) {
   try {
-    const url = new URL(request.url);
-    const query = url.searchParams.get("q");
+    const { searchParams } = new URL(req.url);
+    const query = searchParams.get("q");
 
     if (!query) {
       return Response.json(
-        { error: "Missing search query parameter 'q'" },
+        { error: "Missing search query" },
         { status: 400 }
       );
     }
@@ -15,23 +15,25 @@ export async function GET(request: Request) {
     const api = new YTMusic();
     await api.initialize();
 
-    // Search for songs
-    const searchResults = await api.search(query, "song");
+    
+    const searchResults = await api.search(query);
 
-    const songs = searchResults.map((item: any) => ({
-      title: item.name ?? item.title ?? "Unknown",
-      artists: item.artist ? [item.artist] : item.artists ?? [],
-      thumbnailUrl: item.thumbnailUrl ?? item.thumbnails?.[0]?.url ?? null,
-      videoId: item.videoId,
-      duration: item.duration ?? null,
-      album: item.album ?? null,
-    }));
+    
+    const songs = searchResults
+      .filter((item: any) => item.videoId) 
+      .map((item: any) => ({
+        title: item.name ?? item.title ?? "Unknown",
+        artists: item.artist ? [item.artist] : item.artists ?? [],
+        thumbnailUrl:
+          item.thumbnailUrl ?? item.thumbnails?.[0]?.url ?? null,
+        videoId: item.videoId,
+      }));
 
     return Response.json(songs, { status: 200 });
-  } catch (error) {
-    console.error("Error searching songs:", error);
+  } catch (error: any) {
+    console.error("Error performing search:", error);
     return Response.json(
-      { error: error?.message ?? "Unknown error" },
+      { error: error.message ?? "Unknown error" },
       { status: 500 }
     );
   }
