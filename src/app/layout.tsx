@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.css";
+import NavBar from "@/components/AppBar";
+import Providers from "../store/Provider"; // ✅ make sure name matches
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* Redux Provider wraps everything */}
+        <Providers>
+          {/* MUI Cache Provider */}
+          <AppRouterCacheProvider>
+            <NavBar />
+            {children}
+          </AppRouterCacheProvider>
+        </Providers>
       </body>
     </html>
   );
