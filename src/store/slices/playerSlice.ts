@@ -16,10 +16,11 @@ interface PlayerState {
   error: string | null;
   isSeeking: boolean;
   audioDetails: AudioDetails | null;
+  playingIndex: number,
 }
 
 const initialState: PlayerState = {
-  isPlaying: false,
+  isPlaying: true,
   progress: 0,
   duration: 0,
   currentTime: 0,
@@ -29,6 +30,7 @@ const initialState: PlayerState = {
   error: null,
   isSeeking: false,
   audioDetails: null,
+  playingIndex:0
 };
 
 const playerSlice = createSlice({
@@ -75,6 +77,9 @@ const playerSlice = createSlice({
       state.isLoading = true;
       state.isSeeking = false;
     },
+    setPlayingIndex(state, action){
+          state.playingIndex = action.payload
+    }
   },
 });
 
@@ -90,6 +95,7 @@ export const {
   setIsSeeking,
   setAudioDetails,
   resetPlayer,
+  setPlayingIndex
 } = playerSlice.actions;
 
 export default playerSlice.reducer;
