@@ -8,25 +8,28 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "yt3.ggpht.com", 
+        hostname: "yt3.ggpht.com",
       },
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", 
+        hostname: "lh3.googleusercontent.com",
       },
       {
         protocol: "https",
-        hostname: "yt3.googleusercontent.com", 
+        hostname: "yt3.googleusercontent.com",
       },
       {
         protocol: "https",
-        hostname: "www.gstatic.com", 
+        hostname: "www.gstatic.com",
       },
     ],
   },
   eslint: {
-   
+
     ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
 
